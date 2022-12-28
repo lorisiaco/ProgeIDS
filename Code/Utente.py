@@ -1,4 +1,4 @@
-from JobDatabase import JobOfferDatabase
+from JobDatabase import JobData
 
 class Utente:
     def __init__(self, CF, password ):
@@ -7,7 +7,7 @@ class Utente:
     
     def view_offers(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobOfferDatabase.get_offers()
+        offers = JobData.get_offers()
         
         # stampa le offerte di lavoro
         for offer in offers:
@@ -16,7 +16,7 @@ class Utente:
     
     def view_offers_r1(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobOfferDatabase.get_offers_luogo()
+        offers = JobData.get_offers_luogo()
         
         # stampa le offerte di lavoro
         for offer in offers:
@@ -25,7 +25,7 @@ class Utente:
     
     def view_offers_r2(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobOfferDatabase.get_offers_ruolo()
+        offers = JobData.get_offers_ruolo()
         
         # stampa le offerte di lavoro
         for offer in offers:
@@ -34,7 +34,7 @@ class Utente:
         
     def view_offers_r3(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobOfferDatabase.get_offers_salarioMAX()
+        offers = JobData.get_offers_salarioMAX()
         
         # stampa le offerte di lavoro
         for offer in offers:
@@ -43,7 +43,7 @@ class Utente:
 
     def view_offers_r4(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobOfferDatabase.get_offers_salarioMIN()
+        offers = JobData.get_offers_salarioMIN()
         
         # stampa le offerte di lavoro
         for offer in offers:

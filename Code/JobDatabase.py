@@ -1,7 +1,7 @@
 import sqlite3
 
 # la classe JobOfferDatabase gestisce il database SQLite che contiene le offerte di lavoro
-class JobOfferDatabase:
+class JobData:
     def __init__(self, db_name):
         # il costruttore accetta il nome del file del database come argomento
         # crea una connessione al database e ottiene un cursore
@@ -18,7 +18,7 @@ class JobOfferDatabase:
         # il metodo add_offer accetta un oggetto JobOffer come argomento
         # il cursore esegue la query per inserire una nuova riga nella tabella con i dettagli dell'offerta di lavoro
         self.cursor.execute(
-            '''INSERT INTO OfferteLavoro VALUES (? , ?, ?, ?, ?, ?)''',
+            '''INSERT INTO OfferteLavoro VALUES ( ?, ?, ?, ?, ?, ?)''',
             (offer.id, offer.ruolo, offer.azienda, offer.luogo, offer.salario, offer.descrizione)
         )
         self.conn.commit()

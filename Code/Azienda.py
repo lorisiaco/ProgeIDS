@@ -1,5 +1,5 @@
 import Offerta
-from JobDatabase import JobOfferDatabase
+from JobDatabase import JobData
 
 class Azienda:
     def __init__(self, idc, nome, luogo ,passw):
@@ -14,8 +14,8 @@ class Azienda:
         # crea un'istanza della classe Offerta con i dettagli dell'offerta di lavoro
         offer = Offerta(id, title, self.idc, location, salary)
         # utilizza il metodo add_of della classe JobOfferDatabase per aggiungere l'offerta di lavoro al database
-        JobOfferDatabase.add_of(offer)
+        JobData.add_of(offer)
     
     def delete_offer(self, x):
-        JobOfferDatabase.delete(x)
+        JobData.delete(x)
             
