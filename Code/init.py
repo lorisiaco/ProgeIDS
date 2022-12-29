@@ -2,13 +2,56 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import Offerta
 from JobDatabase import JobData 
 import sqlite3
+import Utente
+import Azienda
 
 app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('jobs.db')
 cursor = conn.cursor()
+
+@app.route('/register', methods=['POST'])
+def register():
+    # Recupera i dati del modulo di registrazione
+    cf = request.form['cf']
+    password = request.form['password']
+    nome=request.form['nome']
+    etá = request.form['etá']
+    sesso=request.form['sesso']
+    residenza=request.form['residenza']
+    new_utente=Utente.Utente(cf,password,nome, etá,sesso,residenza)
+    db = JobData('jobs.db')
+    db.add_ut(new_utente)
+    return redirect(url_for('register_success'))
+
+# Gestisce le richieste GET per la pagina di conferma di registrazione
+@app.route('/register/success')
+def register_success():
+    return render_template('register_success.html')
+
+# Gestisce le richieste GET per la pagina di registrazione
+@app.route('/register')
+def show_register_form():
+    return render_template('register.html')
+
+@app.route('/register_azienda', methods=['POST'])
+def register_azienda():
+    # Recupera i dati del modulo di registrazione
+    idc= request.form['idc']
+    nome = request.form['nome']
+    luogo = request.form['luogo']
+    passw = request.form['passw']
+    new_azienda=Azienda.Azienda(idc,nome,luogo,passw)
+    db = JobData('jobs.db')
+    db.add_az(new_azienda)
+    return redirect(url_for('register_success'))
+
+# Gestisce le richieste GET per la pagina di registrazione
+@app.route('/register_azienda')
+def show_register_azienda_form():
+    return render_template('registerAzienda.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

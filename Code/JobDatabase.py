@@ -22,6 +22,25 @@ class JobData:
             (offer.id, offer.ruolo, offer.azienda, offer.luogo, offer.salario, offer.descrizione)
         )
         self.conn.commit()
+
+    def add_ut(self, utente):
+        # Crea una tabella per gli utenti se non esiste già
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Utenti (CF INTEGER PRIMARY KEY ,Password TEXT,Nome  TEXT,Etá  Integer,Sesso TEXT,Residenza TEXT)""")
+        self.conn.commit()
+        self.cursor.execute(
+            '''INSERT INTO Utenti (CF, Password, Nome, Etá, Sesso, Residenza) VALUES (?, ?, ?, ?, ? ,?)''',
+            (utente.cf, utente.password,utente.nome,utente.etá,utente.sesso,utente.residenza)
+        )
+        self.conn.commit()
+    
+    def add_az(self, azienda):
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Aziende (IDC INTEGER PRIMARY KEY ,Nome TEXT,Luogo TEXT,Password TEXT)""")
+        self.conn.commit()
+        self.cursor.execute(
+            '''INSERT INTO Aziende (IDC, Nome, Luogo, Password) VALUES (?, ?, ?, ?)''',
+            (azienda.idc,azienda.nome,azienda.luogo, azienda.passw)
+        )
+        self.conn.commit()
     
     def get_offers(self):
         # il metodo get_offers esegue una query per selezionare tutte le righe presenti nella tabella

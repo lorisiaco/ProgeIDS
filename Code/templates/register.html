@@ -1,0 +1,24 @@
+
+<h1>Registrazione utente</h1>
+
+<form method="post" action="{{ url_for('register') }}">
+    <label>Codice fiscale utente:</label>
+    <input type="text" name="cf" required>
+    <br>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    <br>
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+    <br>
+    <label>Etá:</label>
+    <input type="number" name="etá" required>
+    <br>
+    <label>Sesso:</label>
+    <input type="text" name="sesso" required>
+    <br>
+    <label>Residenza:</label>
+    <input type="text" name="residenza" required>
+    <br>
+    <input type="submit" value="Registrati">
+</form>
