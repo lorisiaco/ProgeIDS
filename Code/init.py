@@ -12,6 +12,65 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 conn = sqlite3.connect('jobs.db')
 cursor = conn.cursor()
 
+@app.route('/')
+def home():
+    return render_template("home.html")
+
+@app.route('/sign-up',methods=['GET','POST'])
+def sign_up():
+    if request.method=='POST':
+        cf = request.form.get['cf']
+        etá = request.form.get['etá']
+        sesso=request.form.get['sesso']
+        residenza=request.form.get['residenza']
+        email=request.form.get('email')
+        firstName=request.form.get('firstName')
+        password1=request.form.get('password1')
+        password2=request.form.get('password2')
+
+        if len(email) < 4:
+            flash('Email must be greater than 4 characters.',category='error')
+        elif len(firstName) < 2:
+            flash('First name must be greater than 1 characters.',category='error')
+        elif password1 != password2:
+            flash('Passwords don\'t match.',category='error')
+        elif len(password1) < 7:
+            flash('Password must be at least 7 characters.',category='error')
+        else:
+            flash('Account created!.',category='success')
+
+        new_utente=Utente.Utente(cf,password,nome, etá,sesso,residenza)
+        db = JobData('jobs.db')
+        db.add_ut(new_utente)
+    return render_template('sign_up.html')
+
+@app.route('/sign-up-azienda',methods=['GET','POST'])
+def sign_up_azienda():
+    if request.method=='POST':
+        cf = request.form.get['cf']
+        sedelegale=request.form.get['sedelegale']
+        email=request.form.get('email')
+        nomeazienda=request.form.get('nomeazienda')
+        password1=request.form.get('password1')
+        password2=request.form.get('password2')
+
+        if len(email) < 4:
+            flash('Email must be greater than 4 characters.',category='error')
+        elif len(nomeazienda) < 2:
+            flash('First name must be greater than 1 characters.',category='error')
+        elif password1 != password2:
+            flash('Passwords don\'t match.',category='error')
+        elif len(password1) < 7:
+            flash('Password must be at least 7 characters.',category='error')
+        else:
+            flash('Account created!.',category='success')
+
+        new_azienda=Azienda.Azienda(email,cf,nome,sedelegale,passw)
+        db = JobData('jobs.db')
+        db.add_az(new_azienda)
+    return render_template('sign_up_azienda.html')
+
+
 @app.route('/register', methods=['POST'])
 def register():
     # Recupera i dati del modulo di registrazione
@@ -57,7 +116,7 @@ def show_register_azienda_form():
 def login():
     if request.method == 'POST':
         # Esegue una query per verificare che le credenziali siano corrette
-        cursor.execute("SELECT * FROM Utenti WHERE id=? AND password=?", (request.form['id'], request.form['password']))
+        cursor.execute("SELECT * FROM Utenti WHERE Email=? AND password=?", (request.form['Email'], request.form['password']))
         user = cursor.fetchone()
         if user:
             # Imposta la variabile di sessione per indicare che l'utente è autenticato
@@ -81,7 +140,7 @@ def logout():
     # Redirect alla pagina di login
     return redirect(url_for('login'))
 
-@app.route('/')
+@app.route('/index')
 def index():
     db = JobData('jobs.db')
     jobs = db.get_offers()

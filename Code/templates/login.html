@@ -1,16 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login</title>
-</head>
-<body>
-  <h1>Login</h1>
-  <form method="post" action="/login">
-    <label for="id">ID:</label>
-    <input type="number" id="id" name="id"><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br>
-    <input type="submit" value="Submit">
-  </form> 
-</body>
-</html>
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+  %}
+  <form method="POST">
+    <h3 align="center">Login</h3>
+    <div class="form-group">
+      <label for="Email">Email Address</label>
+      <input
+        type="Email"
+        class="form-control"
+        id="Email"
+        name="Email"
+        placeholder="Enter Email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="Enter password"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+  {% endblock %}
