@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask,flash, render_template, request, redirect, url_for, session
 import Offerta
 from JobDatabase import JobData 
 import sqlite3
@@ -19,10 +19,11 @@ def home():
 @app.route('/sign-up',methods=['GET','POST'])
 def sign_up():
     if request.method=='POST':
-        cf = request.form.get['cf']
-        etá = request.form.get['etá']
-        sesso=request.form.get['sesso']
-        residenza=request.form.get['residenza']
+        cf = request.form.get('cf')
+        nome=request.form.get('firstName')
+        etá = request.form.get('etá')
+        sesso=request.form.get('sesso')
+        residenza=request.form.get('residenza')
         email=request.form.get('email')
         firstName=request.form.get('firstName')
         password1=request.form.get('password1')
@@ -39,7 +40,7 @@ def sign_up():
         else:
             flash('Account created!.',category='success')
 
-        new_utente=Utente.Utente(cf,password,nome, etá,sesso,residenza)
+        new_utente=Utente.Utente(email,cf,password1,nome, etá,sesso,residenza)
         db = JobData('jobs.db')
         db.add_ut(new_utente)
     return render_template('sign_up.html')
@@ -47,8 +48,8 @@ def sign_up():
 @app.route('/sign-up-azienda',methods=['GET','POST'])
 def sign_up_azienda():
     if request.method=='POST':
-        cf = request.form.get['cf']
-        sedelegale=request.form.get['sedelegale']
+        cf = request.form.get('cf')
+        sedelegale=request.form.get('sedelegale')
         email=request.form.get('email')
         nomeazienda=request.form.get('nomeazienda')
         password1=request.form.get('password1')
@@ -65,7 +66,7 @@ def sign_up_azienda():
         else:
             flash('Account created!.',category='success')
 
-        new_azienda=Azienda.Azienda(email,cf,nome,sedelegale,passw)
+        new_azienda=Azienda.Azienda(email,cf,nomeazienda,sedelegale,password1)
         db = JobData('jobs.db')
         db.add_az(new_azienda)
     return render_template('sign_up_azienda.html')
@@ -74,12 +75,12 @@ def sign_up_azienda():
 @app.route('/register', methods=['POST'])
 def register():
     # Recupera i dati del modulo di registrazione
-    cf = request.form['cf']
-    password = request.form['password']
-    nome=request.form['nome']
-    etá = request.form['etá']
-    sesso=request.form['sesso']
-    residenza=request.form['residenza']
+    cf = request.form('cf')
+    password = request.form('password')
+    nome=request.form('nome')
+    etá = request.form('etá')
+    sesso=request.form('sesso')
+    residenza=request.form('residenza')
     new_utente=Utente.Utente(cf,password,nome, etá,sesso,residenza)
     db = JobData('jobs.db')
     db.add_ut(new_utente)

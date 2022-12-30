@@ -1,5 +1,6 @@
 import sqlite3
 
+
 # la classe JobOfferDatabase gestisce il database SQLite che contiene le offerte di lavoro
 class JobData:
     def __init__(self, db_name):
@@ -10,7 +11,7 @@ class JobData:
         
         # il cursore esegue la query per creare la tabella nel database se non esiste già
         self.cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (Email text, Ruolo text, Azienda int, Luogo text, Salario real, Descrizione text)'''
+            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (Email text, Ruolo text, Azienda int, sedelegale text, Salario real, Descrizione text)'''
         )
         self.conn.commit()
     
@@ -19,26 +20,26 @@ class JobData:
         # il cursore esegue la query per inserire una nuova riga nella tabella con i dettagli dell'offerta di lavoro
         self.cursor.execute(
             '''INSERT INTO OfferteLavoro VALUES ( ?, ?, ?, ?, ?, ?)''',
-            (offer.Email, offer.ruolo, offer.azienda, offer.luogo, offer.salario, offer.descrizione)
+            (offer.Email, offer.ruolo, offer.azienda, offer.sedelegale, offer.salario, offer.descrizione)
         )
         self.conn.commit()
 
     def add_ut(self, utente):
         # Crea una tabella per gli utenti se non esiste già
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Utenti (CF INTEGER PRIMARY KEY ,Password TEXT,Nome  TEXT,Etá  Integer,Sesso TEXT,Residenza TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Utenti (cf INTEGER PRIMARY KEY ,password TEXT,nome  TEXT,etá  Integer,sesso TEXT,residenza TEXT)""")
         self.conn.commit()
         self.cursor.execute(
-            '''INSERT INTO Utenti (CF, Password, Nome, Etá, Sesso, Residenza) VALUES (?, ?, ?, ?, ? ,?)''',
+            '''INSERT INTO Utenti (cf, password, nome, etá, sesso, residenza) VALUES (?, ?, ?, ?, ? ,?)''',
             (utente.cf, utente.password,utente.nome,utente.etá,utente.sesso,utente.residenza)
         )
         self.conn.commit()
     
     def add_az(self, azienda):
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Aziende (IDC INTEGER PRIMARY KEY ,Nome TEXT,Luogo TEXT,Password TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Aziende (email TEXT PRIMARY KEY ,cf TEXT,nome TEXT,sedelegale TEXT,Password TEXT)""")
         self.conn.commit()
         self.cursor.execute(
-            '''INSERT INTO Aziende (IDC, Nome, Luogo, Password) VALUES (?, ?, ?, ?)''',
-            (azienda.idc,azienda.nome,azienda.luogo, azienda.passw)
+            '''INSERT INTO Aziende (email,cf, nome, sedelegale, Password) VALUES (?, ?, ?, ?, ?)''',
+            (azienda.email,azienda.cf,azienda.nome,azienda.sedelegale, azienda.passw)
         )
         self.conn.commit()
     
@@ -50,20 +51,20 @@ class JobData:
         )
         return self.cursor.fetchall()
     
-    def get_offers_luogo(self):
-        # il metodo get_offers_luogo esegue una query per selezionare tutte le righe presenti nella tabella
-        #in cui il luogo delle offerte corrisponde al luogo inserito dall'utente per la ricerca
-        luogo = input("Inserisci il luogo per la ricerca : ")
+    def get_offers_sedelegale(self):
+        # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
+        #in cui il sedelegale delle offerte corrisponde al sedelegale inserito dall'utente per la ricerca
+        sedelegale = input("Inserisci il sedelegale per la ricerca : ")
         self.cursor.execute(
             '''SELECT * 
                FROM OfferteLavoro
-               WHERE Luogo = ?''',(luogo)
+               WHERE sedelegale = ?''',(sedelegale)
         )
         return self.cursor.fetchall()
     
     def get_offers_ruolo(self):
         # il metodo get_offers_ruoloesegue una query per selezionare tutte le righe presenti nella tabella
-        #in cui il luogo delle offerte corrisponde al ruolo inserito dall'utente per la ricerca
+        #in cui il sedelegale delle offerte corrisponde al ruolo inserito dall'utente per la ricerca
         ruolo = input("Inserisci il ruolo per la ricerca : ")
         self.cursor.execute(
             '''SELECT * 

@@ -1,8 +1,9 @@
 from JobDatabase import JobData
 
 class Utente:
-    def __init__(self, cf, password,nome, etá, sesso, residenza ):
+    def __init__(self,email,cf,password,nome, etá,sesso,residenza ):
         self.cf=cf
+        self.email=email
         self.password=password
         self.nome=nome
         self.etá=etá

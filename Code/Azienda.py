@@ -2,12 +2,13 @@ import Offerta
 from JobDatabase import JobData
 
 class Azienda:
-    def __init__(self, idc, nome, luogo ,passw):
+    def __init__(self,email,cf,nome,sedelegale,passw):
             # il costruttore accetta tre argomenti:il codice univoco ID dell'azienda
             #il nome e il luogo
-            self.idc=idc
+            self.email=email
+            self.cf=cf
             self.nome=nome
-            self.luogo=luogo
+            self.sedelegale=sedelegale
             self.passw=passw
 
     def add_offer(self, id, title, location, salary):
