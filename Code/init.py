@@ -19,28 +19,27 @@ def home():
 @app.route('/sign-up',methods=['GET','POST'])
 def sign_up():
     if request.method=='POST':
-        cf = request.form.get('cf')
-        nome=request.form.get('firstName')
-        etá = request.form.get('etá')
-        sesso=request.form.get('sesso')
-        residenza=request.form.get('residenza')
-        email=request.form.get('email')
-        firstName=request.form.get('firstName')
+        CF = request.form.get('cf')
+        Nome=request.form.get('firstName')
+        Etá = request.form.get('etá')
+        Sesso=request.form.get('sesso')
+        Residenza=request.form.get('residenza')
+        Email=request.form.get('email')
         password1=request.form.get('password1')
         password2=request.form.get('password2')
 
-        if len(email) < 4:
+        if len(Email) < 4:
             flash('Email must be greater than 4 characters.',category='error')
-        elif len(firstName) < 2:
+        elif len(Nome) < 2:
             flash('First name must be greater than 1 characters.',category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.',category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.',category='error')
         else:
-            flash('Account created!.',category='success')
+            flash('Account created!',category='success')
 
-        new_utente=Utente.Utente(email,cf,password1,nome, etá,sesso,residenza)
+        new_utente=Utente.Utente(CF,Email,password1,Nome, Etá,Sesso,Residenza)
         db = JobData('jobs.db')
         db.add_ut(new_utente)
     return render_template('sign_up.html')
@@ -117,7 +116,7 @@ def show_register_azienda_form():
 def login():
     if request.method == 'POST':
         # Esegue una query per verificare che le credenziali siano corrette
-        cursor.execute("SELECT * FROM Utenti WHERE Email=? AND password=?", (request.form['Email'], request.form['password']))
+        cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
         user = cursor.fetchone()
         if user:
             # Imposta la variabile di sessione per indicare che l'utente è autenticato
