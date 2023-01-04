@@ -16,6 +16,16 @@ cursor = conn.cursor()
 def home():
     return render_template("home.html")
 
+@app.route('/Contatti')
+def Contatti():
+    return render_template("contatti.html")
+@app.route('/DashboardUtente')
+def DashboardUtente():
+    return render_template("DashboardUtente.html")
+@app.route('/DashboardAzienda')
+def DashboardAzienda():
+    return render_template("DashboardAzienda.html")
+
 @app.route('/sign-up',methods=['GET','POST'])
 def sign_up():
     if request.method=='POST':
