@@ -9,13 +9,13 @@ app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-conn = sqlite3.connect('jobs.db')
+conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
 
 @app.route('/')
 def home():
     return render_template("home.html")
-
+    
 @app.route('/Contatti')
 def Contatti():
     return render_template("contatti.html")
@@ -141,7 +141,7 @@ def welcome():
     # Verifica che l'utente sia autenticato
     if 'logged_in' not in session:
         return redirect(url_for('login'))
-    return redirect(url_for('/'))
+    return redirect(url_for('DashboardUtente'))
 
 @app.route('/logout')
 def logout():

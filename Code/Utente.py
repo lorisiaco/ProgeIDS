@@ -1,7 +1,7 @@
 from JobDatabase import JobData
 
 class Utente:
-    def __init__(self,CF,Email,Password,Nome, Etá,Sesso,Residenza ):
+    def __init__(self,CF,Email,Password,Nome, Etá,Sesso,Residenza ,Resume):
         self.CF=CF
         self.Email=Email
         self.Password=Password
@@ -9,6 +9,7 @@ class Utente:
         self.Etá=Etá
         self.Sesso=Sesso
         self.Residenza=Residenza
+        self.Resume=Resume
     
     def view_offers(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
