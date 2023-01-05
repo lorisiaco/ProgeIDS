@@ -162,7 +162,7 @@ def logout():
 def index():
     db = JobData('jobs.db')
     jobs = db.get_offers()
-    return render_template('index.html', jobs=jobs)
+    return render_template('index2.html', jobs=jobs)
 
 @app.route('/add', methods=['POST'])
 def add_job():

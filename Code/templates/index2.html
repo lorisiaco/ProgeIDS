@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Carica Offerta{% endblock %} {% block
+    content %}
+    <form action="/add" method="post">
+      <h3 align="center">Carica Offerta</h3>
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input
+          type="number"
+          class="form-control"
+          id="id"
+          name="id"
+          placeholder="Enter ID"
+        />
+      </div>
+      <div class="form-group">
+        <label for="ruolo">Ruolo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ruolo"
+          name="ruolo"
+          placeholder="Ruolo"
+        />
+      </div>
+      <div class="form-group">
+        <label for="azienda">Azienda</label>
+        <input
+          type="number"
+          class="form-control"
+          id="azienda"
+          name="azienda"
+          placeholder="inserisci id azienda"
+        />
+      </div>
+      <div class="form-group">
+        <label for="luogo">Luogo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="luogo"
+          name="luogo"
+          placeholder="Luogo"
+        />
+      </div>
+      <div class="form-group">
+        <label for="salario">Salario</label>
+        <input
+          type="number"
+          class="form-control"
+          id="salario"
+          name="salario"
+          placeholder="inserisci la retribuzione"
+        />
+      </div>
+      <div class="form-group">
+        <label for="descrizione">Descrizione</label>
+        <textarea
+          id="descrizione"
+          name="descrizione"
+          placeholder="inserisci descrizione mansione">
+        </textarea>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Carica</button>
+    </form>
+    {% endblock %}
+
