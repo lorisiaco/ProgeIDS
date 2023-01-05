@@ -1,11 +1,10 @@
 from flask import Flask,flash, render_template, request, redirect, url_for, session
-from flask_wtf import FlaskForm
-from wtforms import FileField
 import Offerta
 from JobDatabase import JobData 
 import sqlite3
 import Utente
 import Azienda
+import PyPDF2
 
 app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
@@ -21,9 +20,6 @@ def home():
 @app.route('/Contatti')
 def Contatti():
     return render_template("contatti.html")
-
-class Utente(FlaskForm):
-    resume = FileField('Curriculum')
     
 @app.route('/DashboardUtente')
 def DashboardUtente():
@@ -43,6 +39,10 @@ def sign_up():
         Email=request.form.get('email')
         password1=request.form.get('password1')
         password2=request.form.get('password2')
+        pdf_file = request.files['cv']
+
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+        pdf_content = pdf_reader.pages[0].extract_text()
 
         if len(Email) < 4:
             flash('Email must be greater than 4 characters.',category='error')
@@ -55,7 +55,7 @@ def sign_up():
         else:
             flash('Account created!',category='success')
 
-        new_utente=Utente.Utente(CF,Email,password1,Nome, Etá,Sesso,Residenza)
+        new_utente=Utente.Utente(CF,Email,password1,Nome, Etá,Sesso,Residenza, pdf_content)
         db = JobData('jobs.db')
         db.add_ut(new_utente)
     return render_template('sign_up.html')

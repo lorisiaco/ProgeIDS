@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
   content %}
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     <h3 align="center">Sign Up</h3>
     <div class="form-group">
       <label for="email">Email Address</label>
@@ -80,6 +80,17 @@
         id="password2"
         name="password2"
         placeholder="Confirm password"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <label for="cv">Curriculum vitae (PDF)</label>
+      <input
+        type="file"
+        class="form-control"
+        id="cv"
+        name="cv"
+        accept="application/pdf"
       />
     </div>
     <br />
