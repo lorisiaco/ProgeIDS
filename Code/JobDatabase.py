@@ -11,7 +11,7 @@ class JobData:
         
         # il cursore esegue la query per creare la tabella nel database se non esiste già
         self.cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (Email text, Ruolo text, Azienda int, sedelegale text, Salario real, Descrizione text)'''
+            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (ID  text PRIMARY KEY , Ruolo text, Azienda int, sedelegale text, Salario real, Descrizione text)'''
         )
         self.conn.commit()
         self.conn.close()
@@ -23,7 +23,7 @@ class JobData:
         self.cursor = self.conn.cursor()
         self.cursor.execute(
             '''INSERT INTO OfferteLavoro VALUES ( ?, ?, ?, ?, ?, ?)''',
-            (offer.Email, offer.ruolo, offer.azienda, offer.sedelegale, offer.salario, offer.descrizione)
+            (offer.id, offer.ruolo, offer.azienda, offer.sedelegale, offer.salario, offer.descrizione)
         )
         self.conn.commit()
         self.conn.close()

@@ -43,5 +43,24 @@
             
          </p>
       </div>
+      <table>
+         <tr>
+           <th>Email</th>
+           <th>Ruolo</th>
+           <th>Azienda</th>
+           <th>SedeLegale</th>
+           <th>Salario</th>
+           <th>Descrizione</th>
+           {% for job_offer in job_offers %}
+           <tr>
+             <td>{{ job_offer[0] }}</td>
+             <td>{{ job_offer[1] }}</td>
+             <td>{{ job_offer[2] }}</td>
+             <td>{{ job_offer[3] }}</td>
+             <td>{{ job_offer[4] }}</td>
+             <td>{{ job_offer[5] }}</td>
+           </tr>
+           {% endfor %}
+       </table>
    </body>
 </html>

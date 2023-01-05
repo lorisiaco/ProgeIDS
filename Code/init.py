@@ -23,7 +23,9 @@ def Contatti():
     
 @app.route('/DashboardUtente')
 def DashboardUtente():
-    return render_template("DashboardUtente.html")
+    job_offers = JobData('jobs.db').get_offers()
+    return render_template('DashboardUtente.html', job_offers=job_offers)
+
 @app.route('/DashboardAzienda')
 def DashboardAzienda():
     return render_template("DashboardAzienda.html")
@@ -170,7 +172,7 @@ def add_job():
     luogo = request.form['luogo']
     salario = request.form['salario']
     descrizione = request.form['descrizione']
-    job = Offerta.Offerta(id=id, ruolo=ruolo, azienda=azienda, luogo=luogo, salario=salario, descrizione=descrizione)
+    job = Offerta.Offerta(id=id, ruolo=ruolo, azienda=azienda, sedelegale=luogo, salario=salario, descrizione=descrizione)
     db = JobData('jobs.db')
     db.add_of(job)
     return redirect(url_for('index'))
