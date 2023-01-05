@@ -32,11 +32,11 @@ class JobData:
         # Crea una tabella per gli utenti se non esiste già
         self.conn = sqlite3.connect('jobs.db')
         self.cursor = self.conn.cursor()
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Utenti (CF TEXT PRIMARY KEY ,Email TEXT, Password TEXT,Nome  TEXT,Etá  INTEGER,Sesso TEXT,Residenza TEXT)""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Utenti (CF TEXT PRIMARY KEY ,Email TEXT, Password TEXT,Nome  TEXT,Etá  INTEGER,Sesso TEXT,Residenza TEXT, CV Text)""")
         self.conn.commit()
         self.cursor.execute(
-            '''INSERT INTO Utenti (CF,Email, Password, Nome, Etá, Sesso, Residenza) VALUES (?, ?, ?, ?, ? ,?, ?)''',
-            (utente.CF, utente.Email, utente.Password,utente.Nome,utente.Etá,utente.Sesso,utente.Residenza)
+            '''INSERT INTO Utenti (CF,Email, Password, Nome, Etá, Sesso, Residenza, CV) VALUES (?, ?, ?, ?, ? ,?, ?, ?)''',
+            (utente.CF, utente.Email, utente.Password,utente.Nome,utente.Etá,utente.Sesso,utente.Residenza,utente.Resume)
         )
         self.conn.commit()
         self.conn.close()

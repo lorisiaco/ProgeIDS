@@ -1,6 +1,9 @@
 from flask import Flask,flash, render_template, request, redirect, url_for, session
 from flask_wtf import FlaskForm
-from wtforms import FileField
+from wtforms import StringField, PasswordField, FileField, IntegerField, RadioField
+from wtforms.validators import InputRequired, Email, Length
+import werkzeug 
+
 import Offerta
 from JobDatabase import JobData 
 import sqlite3
@@ -28,37 +31,42 @@ class Utente(FlaskForm):
 @app.route('/DashboardUtente')
 def DashboardUtente():
     return render_template("DashboardUtente.html")
+
 @app.route('/DashboardAzienda')
 def DashboardAzienda():
     return render_template("DashboardAzienda.html")
 
+class RegisterForm(FlaskForm):
+    cf = StringField('CF', validators=[InputRequired()])
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
+    nome = StringField('Nome', validators=[InputRequired()])
+    eta = IntegerField('Eta', validators=[InputRequired()])
+    sesso = RadioField('Sesso', choices=[('maschio', 'Maschio'), ('femmina', 'Femmina')])
+    residenza = StringField('Residenza', validators=[InputRequired()])
+    resume = FileField('Curriculum')
+
 @app.route('/sign-up',methods=['GET','POST'])
 def sign_up():
-    if request.method=='POST':
-        CF = request.form.get('cf')
-        Nome=request.form.get('firstName')
-        Etá = request.form.get('etá')
-        Sesso=request.form.get('sesso')
-        Residenza=request.form.get('residenza')
-        Email=request.form.get('email')
-        password1=request.form.get('password1')
-        password2=request.form.get('password2')
-
-        if len(Email) < 4:
-            flash('Email must be greater than 4 characters.',category='error')
-        elif len(Nome) < 2:
-            flash('First name must be greater than 1 characters.',category='error')
-        elif password1 != password2:
-            flash('Passwords don\'t match.',category='error')
-        elif len(password1) < 7:
-            flash('Password must be at least 7 characters.',category='error')
-        else:
-            flash('Account created!',category='success')
-
-        new_utente=Utente.Utente(CF,Email,password1,Nome, Etá,Sesso,Residenza)
+    form = RegisterForm()
+    if form.validate_on_submit():
+        # Estrai i dati dal modulo di form
+        cf=form.cf.data
+        email = form.email.data
+        password = form.password.data
+        nome = form.nome.data
+        eta = form.eta.data
+        sesso = form.sesso.data
+        residenza=form.residenza.data
+        file = form.resume.data
+        # Salva il file nella cartella statica del tuo progetto
+        file.save('ProgeIDS/Code/static/resumes/{}'.format(file.filename))
+        # Crea una nuova istanza dell'utente con tutti i dati del modulo di form e il percorso del file del curriculum
+        new_utente = Utente(cf,email,password,nome,eta,sesso,residenza, resume_path='ProgeIDS/Code/static/resumes/{}'.format(file.filename))
+        # Salva l'utente nel database o dove preferisci
         db = JobData('jobs.db')
         db.add_ut(new_utente)
-    return render_template('sign_up.html')
+    return render_template('sign_up2.html', form=form)
 
 @app.route('/sign-up-azienda',methods=['GET','POST'])
 def sign_up_azienda():
