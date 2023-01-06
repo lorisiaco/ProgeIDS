@@ -11,7 +11,7 @@ class JobData:
         
         # il cursore esegue la query per creare la tabella nel database se non esiste già
         self.cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (ID  text PRIMARY KEY , Ruolo text, Azienda int, sedelegale text, Salario real, Descrizione text)'''
+            '''CREATE TABLE IF NOT EXISTS OfferteLavoro (ID  text PRIMARY KEY , Ruolo text, Azienda text, sedelegale text, Salario real, Descrizione text)'''
         )
         self.conn.commit()
         self.conn.close()

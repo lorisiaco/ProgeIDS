@@ -22,7 +22,7 @@ class Utente:
     
     def view_offers_r1(self):
         # utilizza il metodo get_offers della classe JobOfferDatabase per ottenere tutte le offerte di lavoro dal database
-        offers = JobData.get_offers_luogo()
+        offers = JobData.get_offers_sedelegale()
         
         # stampa le offerte di lavoro
         for offer in offers:
