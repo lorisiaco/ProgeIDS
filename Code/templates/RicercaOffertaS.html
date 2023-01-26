@@ -1,23 +1,23 @@
-{% extends "base.html" %} {% block title %}Ricerca Offerta{% endblock %} {% block content %}
-<form action="/RicercaOfferta" method="POST" enctype="multipart/form-data">
+{% extends "base.html" %} {% block title %}Ricerca Offerta Salario{% endblock %} {% block content %}
+<form action="/RicercaOffertaS" method="POST" enctype="multipart/form-data">
     <h3 align="center">Ricerca</h3>
-    <div class="form-group">
-      <label for="search_term">Professione</label>
+    <div class="search_sal">
+      <label for="search_term">Salario</label>
       <input
         type="text"
         class="form-control"
-        id="search_term"
-        name="search_term"
-        placeholder="Enter profession"
+        id="search_sal"
+        name="search_sal"
+        placeholder="Enter salary"
       />
     </div>
     <div class="form-group">
-      <label for="search_luogo">Luogo</label>
+      <label for="search_l">Luogo</label>
       <input
         type="text"
         class="form-control"
-        id="search_luogo"
-        name="search_luogo"
+        id="search_l"
+        name="search_l"
         placeholder="Enter place"
       />
     </div>
@@ -35,14 +35,14 @@
                 <th> Salario  </th>
                 <th> Descrizione </th>
             </tr>
-            {% for x in res %}
+            {% for row in res %}
             <tr>
-              <td>{{ x[0] }}</td>
-              <td>{{ x[1] }}</td>
-              <td>{{ x[2] }}</td>
-              <td>{{ x[3] }}</td>
-              <td>{{ x[4] }}</td>
-              <td>{{ x[5] }}</td>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
             </tr>
           {% endfor %}
         </table>

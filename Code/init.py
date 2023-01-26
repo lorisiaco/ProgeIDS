@@ -194,6 +194,17 @@ def RicercaOfferta():
         results = JobData('jobs.db').get_offers_res(search_term,search_luogo)
     return render_template('RicercaOfferta.html', results=results)
 
+@app.route('/RicercaOffertaS', methods=['GET', 'POST'])
+def RicercaOffertaS():
+    results = None
+    if request.method == 'POST':
+        # Recupero i parametri di ricerca dal form
+        # Eseguo la query sul database
+        search_sal = request.form.get('search_sal')
+        search_l = request.form.get('search_l')
+        results = JobData('jobs.db').get_offers_sal(search_sal,search_l)
+    return render_template('RicercaOffertaS.html', results=results)
+
 if __name__ == '__main__':
     app.run(debug=True)
     app.run(debug=True)
