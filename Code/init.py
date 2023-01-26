@@ -183,6 +183,17 @@ def delete_job(id):
     db.delete(id)
     return redirect(url_for('index'))
 
+@app.route('/RicercaOfferta', methods=['GET', 'POST'])
+def RicercaOfferta():
+    results = None
+    if request.method == 'POST':
+        # Recupero i parametri di ricerca dal form
+        # Eseguo la query sul database
+        search_term = request.form.get('search_term')
+        search_luogo = request.form.get('search_luogo')
+        results = JobData('jobs.db').get_offers_res(search_term,search_luogo)
+    return render_template('RicercaOfferta.html', results=results)
+
 if __name__ == '__main__':
     app.run(debug=True)
     app.run(debug=True)

@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Ricerca Offerta{% endblock %} {% block content %}
+<form action="/RicercaOfferta" method="POST" enctype="multipart/form-data">
+    <h3 align="center">Ricerca</h3>
+    <div class="form-group">
+      <label for="search_term">Professione</label>
+      <input
+        type="text"
+        class="form-control"
+        id="search_term"
+        name="search_term"
+        placeholder="Enter profession"
+      />
+    </div>
+    <div class="form-group">
+      <label for="search_luogo">Luogo</label>
+      <input
+        type="text"
+        class="form-control"
+        id="search_luogo"
+        name="search_luogo"
+        placeholder="Enter place"
+      />
+    </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Ricerca</button>
+</form>
+<body>
+    <table id="tabella" class="display">
+        <thead>
+            <tr>
+                <th> Email </th>
+                <th> Ruolo  </th>
+                <th> Azienda </th>
+                <th> Sedelegale</th>
+                <th> Salario  </th>
+                <th> Descrizione </th>
+            </tr>
+            {% for row in results %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+    {% endblock %}
