@@ -5,10 +5,11 @@ import sqlite3
 import Utente
 import Azienda
 import PyPDF2
-
+from datetime import timedelta
 app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.permanent_session_lifetime=timedelta(days=5)
 
 conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
@@ -133,28 +134,28 @@ def show_register_azienda_form():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        session.permanent= True
         # Esegue una query per verificare che le credenziali siano corrette
         cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
-        user = cursor.fetchone()
-        if user:
-            # Imposta la variabile di sessione per indicare che l'utente è autenticato
-            session['logged_in'] = True
-            # Redirect alla pagina di benvenuto
-            return redirect(url_for('welcome'))
-    # Mostra il modulo di login
-    return render_template('login.html')
+        user = request.form['Email']
+        session["user"]=user
+        return redirect(url_for("user",usr=user))
+    else:
+        # Mostra il modulo di login
+        return render_template('login.html')
 
-@app.route('/welcome')
-def welcome():
+@app.route('/<usr>')
+def user(usr):
     # Verifica che l'utente sia autenticato
-    if 'logged_in' not in session:
+    if "user" in session:
+        user= session["user"]
+        return render_template('DashboardUtente.html')
+    else:
         return redirect(url_for('login'))
-    return redirect(url_for('DashboardUtente'))
-
 @app.route('/logout')
 def logout():
     # Rimuove la variabile di sessione per indicare che l'utente non è più autenticato
-    session.pop('logged_in', None)
+    session.pop('user', None)
     # Redirect alla pagina di login
     return redirect(url_for('login'))
 
