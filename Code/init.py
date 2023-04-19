@@ -152,6 +152,7 @@ def user(usr):
         return render_template('DashboardUtente.html')
     else:
         return redirect(url_for('login'))
+    
 @app.route('/logout')
 def logout():
     # Rimuove la variabile di sessione per indicare che l'utente non è più autenticato
