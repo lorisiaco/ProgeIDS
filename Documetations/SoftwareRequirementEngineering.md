@@ -43,7 +43,21 @@ Il sistema software non necessita nessun sistema HardWare
 - Registrazione Utente : per la creazione del proprio account l'utente deve inserire vari dati tra cui: i vari data anagrafici(nome,cognome,età) una email, una password e inoltre è richiesto l'annessione del Curriculum Vitae.
 -Registrazione Azienda : per la creazione del proprio account l'azienda deve inserire vari dati tra cui: i vari data anagrafici(nome,PIVA) una email, una password.
 - Per ogni email deve esistere un unico account, non è permessa la duplicazione.
-*
+- Login : l'accesso al propio account è realizzato inserendo l'apposita email e password fornite durante la fase di Registrazione.
+
+*Area Personale Utente* :
+- Cerca Offerte per Professione : mostra le Offerte relative alla mansione richiesta data in input.
+- Cerca Offerte per Salario : mostra le Offerte relative allo stipendio richiesto dato in input.
+
+*Area Personale Azienda* :
+-Carica Offerta : permette di pubblicare un'offerta di lavoro.
+-Vedi Candidatura : permette di visualizzare l'elenco dei candidati ai vari annunci.
+### Requisiti non Funzionali ###
+*Area Personale Utente* :
+- Effettua Reclamo : crea un reclamo
+### Requisiti sulle Performance ###
+Essendo una webapp relativamente leggera e semplice, non c'è bisogno di dispositivi con performance elevate, basta una comune connesione ad internet ed un qualsiasi disposivo per la visualizzazione del sito.
+
 
 
 
