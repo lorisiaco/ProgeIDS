@@ -30,9 +30,9 @@ La prospettiva del prodotto è quello di semplificare ed ottimizzare la fase di 
 ### Caratteristiche Utente ###
 Dato che la webapp è rivolta ad un target di età che va dai 18-70 anni, l'interfaccia è semplice ed intuitiva proprio per semplificare l'esperienza ed renderla adatta a tutti, quindi non necessita una formazione per l'utilizzo da parte dell'utente finale.
 ### Vincoli ###
-PENSARE
-
-PENSARE 
+-Le password degli account non possono essere minore di 8  aratteri
+-Ogni password ha un solo account corrispondente.
+-Senza Registrazione non è possibile effettuare il login e l'accesso alla dashboard personale.
 ## 3 - Requisiti Specifici
 ### Interfaccia Utente ###
 Il sistema software deve possedere un'interfaccia semplice, intiutiva e chiara per poter essere utilizzata da più persone possibili.
