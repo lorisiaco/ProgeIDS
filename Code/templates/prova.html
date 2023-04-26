@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Offerte di lavoro</title>
+</head>
+<body>
+	<h1>Offerte di lavoro</h1>
+	<ul>
+		{% for offerta_lavoro in offerte_lavoro %}
+		<li><a href="{{ url_for('offerta_lavoro', id=offerta_lavoro[0]) }}">{{ offerta_lavoro[1] }}</a></li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
