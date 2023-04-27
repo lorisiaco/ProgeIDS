@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Candidati Offerta</title>
+  </head>
+  <body>
+    <h1>Candidati Offerta</h1>
+    <form method="POST" action="/VisualizzaCandidati">
+        <input type="text" name="offerta_id" placeholder="ID OFFERTA">
+        <button type="submit">Visualizza</button>
+      </form>
+    <br>
+    <br>
+    <h2>Candidati Offerta con ID =  {{ offerta_id }}</h2>
+    <table>
+      <tr>
+        <th>CF</th>
+        <th>Email</th>
+        <th>Nome</th>
+        <th>Età</th>
+        <th>Sesso</th>
+        <th>Residenza</th>
+        <th>Cf</th>
+      </tr>
+      {% for c in candidati %}
+      <tr>
+          <td>{{ c[0] }}</td>
+          <td>{{ c[1] }}</td>
+          <td>{{ c[3] }}</td>
+          <td>{{ c[4] }}</td>
+          <td>{{ c[5] }}</td>
+          <td>{{ c[6] }}</td>
+          <td>{{ c[7] }}</td>
+          <td>
+            <form method="POST" action="/CandidatoSelezionato">
+              <input type="hidden" name="offerta_id1"  value="{{ offerta_id }}">
+              <input type="hidden" name="utente_id" value="{{ c[0] }}">
+              <button type="submit">Seleziona Candidato</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>

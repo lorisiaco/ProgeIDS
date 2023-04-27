@@ -28,14 +28,14 @@
     <table id="tabella" class="display">
         <thead>
             <tr>
-                <th> Email </th>
+                <th> ID </th>
                 <th> Ruolo  </th>
                 <th> Azienda </th>
                 <th> Sedelegale</th>
                 <th> Salario  </th>
                 <th> Descrizione </th>
             </tr>
-            {% for x in res %}
+            {% for x in results %}
             <tr>
               <td>{{ x[0] }}</td>
               <td>{{ x[1] }}</td>
@@ -43,6 +43,19 @@
               <td>{{ x[3] }}</td>
               <td>{{ x[4] }}</td>
               <td>{{ x[5] }}</td>
+              <td>
+                <form method="POST" action="/candidati">
+                  <input type="hidden" name="offerta_id" value="{{ x[0] }}">
+                  <input type="text" name="utente_cf" placeholder="Codice fiscale">
+                  <button type="submit">Candidati</button>
+                </form>
+              </td>
+              <td>
+                <form method="POST" action="/a">
+                   <input type="hidden" name="offerta_id2" value="{{ x[0] }}">
+                  <button type="submit">Candidato Scelto</button>
+                </form>
+              </td>
             </tr>
           {% endfor %}
         </table>
