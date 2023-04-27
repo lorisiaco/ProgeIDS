@@ -6,10 +6,11 @@ import Utente
 import Azienda
 import PyPDF2
 from datetime import timedelta
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.permanent_session_lifetime=timedelta(days=5)
+app.permanent_session_lifetime=timedelta(minutes=1)
 
 conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
@@ -83,6 +84,7 @@ def Contatti():
     return render_template("contatti.html")
     
 @app.route('/DashboardUtente')
+@login_required
 def DashboardUtente():
     job_offers = JobData('jobs.db').get_offers()
     return render_template('DashboardUtente.html', job_offers=job_offers)
@@ -123,6 +125,7 @@ def sign_up():
         db.add_ut(new_utente)
     return render_template('sign_up.html')
 
+
 @app.route('/sign-up-azienda',methods=['GET','POST'])
 def sign_up_azienda():
     if request.method=='POST':
@@ -149,52 +152,12 @@ def sign_up_azienda():
         db.add_az(new_azienda)
     return render_template('sign_up_azienda.html')
 
-
-@app.route('/register', methods=['POST'])
-def register():
-    # Recupera i dati del modulo di registrazione
-    cf = request.form('cf')
-    password = request.form('password')
-    nome=request.form('nome')
-    etá = request.form('etá')
-    sesso=request.form('sesso')
-    residenza=request.form('residenza')
-    new_utente=Utente.Utente(cf,password,nome, etá,sesso,residenza)
-    db = JobData('jobs.db')
-    db.add_ut(new_utente)
-    return redirect(url_for('register_success'))
-
-# Gestisce le richieste GET per la pagina di conferma di registrazione
-@app.route('/register/success')
-def register_success():
-    return render_template('register_success.html')
-
-# Gestisce le richieste GET per la pagina di registrazione
-@app.route('/register')
-def show_register_form():
-    return render_template('register.html')
-
-@app.route('/register_azienda', methods=['POST'])
-def register_azienda():
-    # Recupera i dati del modulo di registrazione
-    idc= request.form['idc']
-    nome = request.form['nome']
-    luogo = request.form['luogo']
-    passw = request.form['passw']
-    new_azienda=Azienda.Azienda(idc,nome,luogo,passw)
-    db = JobData('jobs.db')
-    db.add_az(new_azienda)
-    return redirect(url_for('register_success'))
-
-# Gestisce le richieste GET per la pagina di registrazione
-@app.route('/register_azienda')
-def show_register_azienda_form():
-    return render_template('registerAzienda.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         session.permanent= True
+    #metti un flow control che verifica se si tratta di un utente o di un azienda
+    
         # Esegue una query per verificare che le credenziali siano corrette
         cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
         user = request.form['Email']
@@ -213,6 +176,7 @@ def user(usr):
     else:
         return redirect(url_for('login'))
 @app.route('/logout')
+@login_required
 def logout():
     # Rimuove la variabile di sessione per indicare che l'utente non è più autenticato
     session.pop('user', None)
@@ -226,6 +190,7 @@ def index():
     return render_template('index2.html', jobs=jobs)
 
 @app.route('/add', methods=['POST'])
+@login_required
 def add_job():
     id= request.form['id']
     ruolo = request.form['ruolo']
@@ -239,12 +204,14 @@ def add_job():
     return redirect(url_for('index'))
 
 @app.route('/delete/<int:id>')
+@login_required
 def delete_job(id):
     db = JobData('jobs.db')
     db.delete(id)
     return redirect(url_for('index'))
 
 @app.route('/RicercaOfferta', methods=['GET', 'POST'])
+@login_required
 def RicercaOfferta():
     results = []
     if request.method == 'POST':
@@ -257,6 +224,7 @@ def RicercaOfferta():
     return render_template('RicercaOfferta.html', results=results)
 
 @app.route('/RicercaOffertaS', methods=['GET', 'POST'])
+@login_required
 def RicercaOffertaS():
     results = []
     if request.method == 'POST':
