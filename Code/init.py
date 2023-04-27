@@ -246,25 +246,28 @@ def delete_job(id):
 
 @app.route('/RicercaOfferta', methods=['GET', 'POST'])
 def RicercaOfferta():
-    results = None
+    results = []
     if request.method == 'POST':
         # Recupero i parametri di ricerca dal form
         # Eseguo la query sul database
         search_term = request.form.get('search_term')
         search_luogo = request.form.get('search_luogo')
-        results = JobData('jobs.db').get_offers_res(search_term,search_luogo)
+        db=JobData('jobs.db')
+        results = db.get_offers_res(search_term,search_luogo)
     return render_template('RicercaOfferta.html', results=results)
 
 @app.route('/RicercaOffertaS', methods=['GET', 'POST'])
 def RicercaOffertaS():
-    results = None
+    results = []
     if request.method == 'POST':
         # Recupero i parametri di ricerca dal form
         # Eseguo la query sul database
         search_sal = request.form.get('search_sal')
         search_l = request.form.get('search_l')
-        results = JobData('jobs.db').get_offers_sal(search_sal,search_l)
+        db=JobData('jobs.db')
+        results = db.get_offers_sal(search_sal,search_l)
     return render_template('RicercaOffertaS.html', results=results)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
