@@ -28,7 +28,7 @@
     <table id="tabella" class="display">
         <thead>
             <tr>
-                <th> Email </th>
+                <th> ID </th>
                 <th> Ruolo  </th>
                 <th> Azienda </th>
                 <th> Sedelegale</th>
@@ -43,6 +43,7 @@
               <td>{{ x[3] }}</td>
               <td>{{ x[4] }}</td>
               <td>{{ x[5] }}</td>
+              <td><button onclick="location.href='/candidati/{{ x[0] }}'">Candidati</button></td>
             </tr>
           {% endfor %}
         </table>

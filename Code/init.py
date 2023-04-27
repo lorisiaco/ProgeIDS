@@ -17,7 +17,67 @@ cursor = conn.cursor()
 @app.route('/')
 def home():
     return render_template("home.html")
-    
+
+@app.route('/c')
+def c():
+    job_offers = JobData('jobs.db').get_offers()
+    return render_template('prova3.html', job_offers=job_offers)
+
+@app.route('/a', methods=['POST'])
+def a():
+    offerta_id2 = request.form['offerta_id2']
+    conn = sqlite3.connect('jobs.db')
+    c = conn.cursor()
+    c.execute("SELECT id_ca FROM Candidature WHERE id_offerta = ?", (offerta_id2,))
+    prescelto = c.fetchone()
+    conn.close()
+    if prescelto:
+        return "La persona selezionata è la persona con questo Codice Fiscale: " + str(prescelto[0])
+    else:
+        return "Nessuna persona è stata prescelta per questa offerta di lavoro."
+
+@app.route('/candidati', methods=['POST'])
+def candidati():
+    # Recupera i dati della candidatura dalla richiesta
+    offerta_id = request.form['offerta_id']
+    utente_cf = request.form['utente_cf']
+    # Salva i dati della candidatura nel database
+    conn = sqlite3.connect('jobs.db')
+    c = conn.cursor()
+    c.execute('CREATE TABLE IF NOT EXISTS Candidature (idc INTEGER PRIMARY KEY AUTOINCREMENT, id_offerta TEXT, id_utente TEXT, id_ca INTEGER, FOREIGN KEY (id_offerta) REFERENCES OfferteLavoro (ID), FOREIGN KEY (id_utente) REFERENCES Utente(CF));')
+    c.execute("INSERT INTO Candidature (id_offerta, id_utente) VALUES (?, ?)", (offerta_id, utente_cf))
+    conn.commit()
+    conn.close()
+    return "Candidatura inviata con successo!"
+
+@app.route('/CandidatoSelezionato', methods=['POST'])
+def CandidatoSelezionato():
+    utente_id = request.form['utente_id']
+    offerta_id1 = request.form['offerta_id1']
+    conn = sqlite3.connect('jobs.db')
+    c = conn.cursor()
+    c.execute("UPDATE Candidature SET id_ca = ? WHERE id_offerta = ?", (utente_id, offerta_id1))
+    conn.commit()
+    conn.close()
+    return "Candidato selezionato con successo!"
+
+
+@app.route('/VisualizzaCandidati', methods=['GET','POST'])
+def VisualizzaCandidati():
+    if request.method == 'POST':
+        offerta_id = request.form['offerta_id']
+    else:
+        offerta_id = request.args.get('offerta_id')
+    conn = sqlite3.connect('jobs.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM Utenti u JOIN Candidature c on u.CF=c.id_utente WHERE id_offerta= ?",(offerta_id,))
+    candidati=c.fetchall()
+    if len(candidati) == 0:
+        message = "Nessun candidato trovato per l'offerta con id {}".format(offerta_id)
+        return render_template('Candidati.html', message=message)
+    else:
+        return render_template('Candidati.html', candidati=candidati, offerta_id=offerta_id)
+
 @app.route('/Contatti')
 def Contatti():
     return render_template("contatti.html")
