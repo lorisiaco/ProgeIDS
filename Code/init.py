@@ -1,4 +1,4 @@
-from flask import Flask,flash, render_template, request, redirect, url_for, session
+from flask import Flask,flash, render_template, request, redirect, url_for, session,jsonify, make_response
 import Offerta
 from JobDatabase import JobData 
 import sqlite3
@@ -7,6 +7,11 @@ import Azienda
 import PyPDF2
 from datetime import timedelta
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import jwt
+from datetime import datetime, timedelta
+from functools import wraps
+
+
 app = Flask(__name__)
 #Impost0 la chiave segreta per la sessione
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -14,6 +19,27 @@ app.permanent_session_lifetime=timedelta(minutes=1)
 
 conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
+
+def token_required(func):
+    # decorator factory which invoks update_wrapper() method and passes decorated function as an argument
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        token = request.args.get('token')
+        if not token:
+            return jsonify({'Alert!': 'Token is missing!'}), 401
+
+        try:
+
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+        # You can use the JWT errors in exception
+        # except jwt.InvalidTokenError:
+        #     return 'Invalid token. Please log in again.'
+        except:
+            return jsonify({'Message': 'Invalid token'}), 403
+        return func(*args, **kwargs)
+    return decorated
+
+
 
 @app.route('/')
 def home():
@@ -84,7 +110,6 @@ def Contatti():
     return render_template("contatti.html")
     
 @app.route('/DashboardUtente')
-@login_required
 def DashboardUtente():
     job_offers = JobData('jobs.db').get_offers()
     return render_template('DashboardUtente.html', job_offers=job_offers)
@@ -151,20 +176,38 @@ def sign_up_azienda():
         db = JobData('jobs.db')
         db.add_az(new_azienda)
     return render_template('sign_up_azienda.html')
-
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+# Esegue una query per verificare che le credenziali siano corrette
     if request.method == 'POST':
-        session.permanent= True
-    #metti un flow control che verifica se si tratta di un utente o di un azienda
-    
-        # Esegue una query per verificare che le credenziali siano corrette
-        cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
-        user = request.form['Email']
-        session["user"]=user
-        return redirect(url_for("user",usr=user))
+        # Verifica se il checkbox in login.html è stato selezionato
+        if request.form['checkIfAzienda'] == '':
+            cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
+            result = cursor.fetchone()
+            if result:
+                # Imposta la variabile di sessione per indicare che l'utente è autenticato
+                session["user"]=request.form['Email']
+                return redirect(url_for("user",usr=request.form['Email']))
+            else:
+                # Messaggio di errore nel caso in cui le credenziali siano errate
+                error = "Invalid credentials"
+                #mostra il modulo di login piu il messaggio di errore
+                return render_template('login.html', error=error)
+        else:
+            cursor.execute("SELECT * FROM Aziende WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
+            result = cursor.fetchone()
+            if result:
+                # Imposta la variabile di sessione per indicare che l'utente è autenticato
+                session["user"]=request.form['Email']
+                return redirect(url_for("azd",azd=request.form['Email']))
+            else:
+                # Messaggio di errore nel caso in cui le credenziali siano errate
+                error = "Invalid credentials"
+                #mostra il modulo di login piu il messaggio di errore
+                return render_template('login.html', error=error)
     else:
-        # Mostra il modulo di login
+    # Mostra il modulo di login
         return render_template('login.html')
 
 @app.route('/<usr>')
@@ -175,8 +218,16 @@ def user(usr):
         return render_template('DashboardUtente.html')
     else:
         return redirect(url_for('login'))
+
+@app.route('/<azd>')
+def azd():
+    # Verifica che l'utente sia autenticato
+    if "azd" in session:
+        azd= session["user"]
+        return render_template('DashboardAzienda.html')
+    else:
+        return redirect(url_for('login'))
 @app.route('/logout')
-@login_required
 def logout():
     # Rimuove la variabile di sessione per indicare che l'utente non è più autenticato
     session.pop('user', None)
@@ -190,7 +241,6 @@ def index():
     return render_template('index2.html', jobs=jobs)
 
 @app.route('/add', methods=['POST'])
-@login_required
 def add_job():
     id= request.form['id']
     ruolo = request.form['ruolo']
@@ -204,14 +254,13 @@ def add_job():
     return redirect(url_for('index'))
 
 @app.route('/delete/<int:id>')
-@login_required
+
 def delete_job(id):
     db = JobData('jobs.db')
     db.delete(id)
     return redirect(url_for('index'))
 
 @app.route('/RicercaOfferta', methods=['GET', 'POST'])
-@login_required
 def RicercaOfferta():
     results = []
     if request.method == 'POST':
@@ -224,7 +273,6 @@ def RicercaOfferta():
     return render_template('RicercaOfferta.html', results=results)
 
 @app.route('/RicercaOffertaS', methods=['GET', 'POST'])
-@login_required
 def RicercaOffertaS():
     results = []
     if request.method == 'POST':
