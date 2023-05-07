@@ -20,26 +20,6 @@ app.permanent_session_lifetime=timedelta(minutes=1)
 conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
 
-def token_required(func):
-    # decorator factory which invoks update_wrapper() method and passes decorated function as an argument
-    @wraps(func)
-    def decorated(*args, **kwargs):
-        token = request.args.get('token')
-        if not token:
-            return jsonify({'Alert!': 'Token is missing!'}), 401
-
-        try:
-
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-        # You can use the JWT errors in exception
-        # except jwt.InvalidTokenError:
-        #     return 'Invalid token. Please log in again.'
-        except:
-            return jsonify({'Message': 'Invalid token'}), 403
-        return func(*args, **kwargs)
-    return decorated
-
-
 
 @app.route('/')
 def home():
@@ -182,7 +162,25 @@ def login():
 # Esegue una query per verificare che le credenziali siano corrette
     if request.method == 'POST':
         # Verifica se il checkbox in login.html è stato selezionato
-        if request.form['checkIfAzienda'] == '':
+        is_checked = request.form.get('sonoAzienda')
+        if is_checked=='on':
+            cursor.execute("SELECT * FROM Aziende WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
+            # Ottiene il risultato della query
+            result = cursor.fetchone()
+            if result:
+                #imposta la variabile di sessione di azienda e indirizzami alla dashboard azienda
+                session["azienda"]=request.form['Email']
+                if "azienda" in session:
+                    az= session["azienda"]
+                    return render_template('DashboardAzienda.html')
+
+            else:
+                # Messaggio di errore nel caso in cui le credenziali siano errate
+                error = "Invalid credentials"
+                #mostra il modulo di login piu il messaggio di errore
+                return render_template('login.html', error=error)
+
+        else :
             cursor.execute("SELECT * FROM Utenti WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
             result = cursor.fetchone()
             if result:
@@ -194,18 +192,7 @@ def login():
                 error = "Invalid credentials"
                 #mostra il modulo di login piu il messaggio di errore
                 return render_template('login.html', error=error)
-        else:
-            cursor.execute("SELECT * FROM Aziende WHERE Email=? AND Password=?", (request.form['Email'], request.form['password']))
-            result = cursor.fetchone()
-            if result:
-                # Imposta la variabile di sessione per indicare che l'utente è autenticato
-                session["user"]=request.form['Email']
-                return redirect(url_for("azd",azd=request.form['Email']))
-            else:
-                # Messaggio di errore nel caso in cui le credenziali siano errate
-                error = "Invalid credentials"
-                #mostra il modulo di login piu il messaggio di errore
-                return render_template('login.html', error=error)
+
     else:
     # Mostra il modulo di login
         return render_template('login.html')
@@ -218,15 +205,16 @@ def user(usr):
         return render_template('DashboardUtente.html')
     else:
         return redirect(url_for('login'))
-
+#come la route precedente ma per entrare in dashboard azienda
 @app.route('/<azd>')
-def azd():
-    # Verifica che l'utente sia autenticato
-    if "azd" in session:
-        azd= session["user"]
+def azd(az):
+    # Verifica che l'azienda sia autenticata
+    if "azienda" in session:
+        az= session["azienda"]
         return render_template('DashboardAzienda.html')
     else:
         return redirect(url_for('login'))
+
 @app.route('/logout')
 def logout():
     # Rimuove la variabile di sessione per indicare che l'utente non è più autenticato

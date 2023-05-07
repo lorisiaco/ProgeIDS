@@ -23,19 +23,10 @@
       />
     </div>
     <!--mi serve una spunta per chiedere se si tratta di un'azienda-->
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=True
-        id="defaultCheck1"
-        name="checkIfAzienda"
-        />
-      <label class="form-check-label" for="defaultCheck1">
-       clicca se hai un profilo aziendale
-      </label>
+    <div class="form-group">
+      <input type="checkbox" name="sonoAzienda"> Sono un'azienda<br>
+      <br />
     </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Login</button>
+      <button type="submit" class="btn btn-primary">Login</button>
   </form>
   {% endblock %}
