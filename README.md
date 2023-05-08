@@ -11,7 +11,7 @@ Dopo un' attenta analisi dei requisiti abbiamo identificato:
 
 ### UML
 Abbiamo realizzato i vari diagrammi grazie a STARUML.
-Sono nella cartella [Documentazione/Diagrammi](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML)
+Sono nella cartella [Documetations/UML](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML)
 - [CASI D'USO](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/UseCaseDiagram/UseCaseDiagram.png)
 - [ATTIVITÀ](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/ActivityDiagram/ActivityDiagram.png)
 - [CLASSI](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/ClassDiagram/ClassDiagram.png)
