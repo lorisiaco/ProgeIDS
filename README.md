@@ -43,4 +43,4 @@ Abbiamo realizzato un DATABASE in mysql per la gestione delle offerte, per il LO
 ## Componenti del gruppo
 - [__Andrea Moressa__](https://github.com/morex5ound)
 - [__Loris Iacoban__](https://github.com/lorisiaco)
-- [__Amin Borqal__](https://github.com/)
+- [__Amin Borqal__](https://github.com/aminb00)
