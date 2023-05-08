@@ -6,7 +6,7 @@ Per sviluppare il nostro progetto abbiamo utilizzato GitHub,usato come SCM tool,
 - `Documentations`: contiene la nostra documentazione ossia i vari diagrammi UML, il project plan, la nostra documentazione(Confrigurazione,GestionePersonale, Requisiti, ecc..) quest'ultima in formato md.
 
 ## Gestione Task
-Essendoci basati su Scrum, questa metodologia ci impone di avere un Product Backlog in cui sono contunute le varie task in ordine di priorità di implementazione per ogni sprint effettutato. La relativa documentazione di Scrum è contunuta nel file `SCMDocumentations`.
+Essendoci basati su Scrum, questa metodologia ci impone di avere un Product Backlog in cui sono contunute le varie task in ordine di priorità di implementazione per ogni sprint effettutato. La relativa documentazione di Scrum è contunuta nel file `SCMDocumentation`.
 
 Durante lo sviluppo ci siamo basati sull'utilizzo di GitHub con le varie operazioni di issue, commit, pull request.
 

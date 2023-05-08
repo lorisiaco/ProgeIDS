@@ -9,4 +9,4 @@ Gli sprint saranno fissati tra le 4 e le 5 settimane.
 Saranno inoltre pianificati Daily Scrum (5 minuti) per avere relativi feedback riguardanti all'andamento del lavoro e 1 incontro settimanale di breve durata per esprimersi riguardo
 alle criticità incontrate durante il percorso osservate e per gestire le future implementazioni.
 
-Gli sprint che abbiamo effettuato ed il Product Backlog sono contenuti nel file `SCMDocumentations`.
+Gli sprint che abbiamo effettuato ed il Product Backlog sono contenuti nel file `SCMDocumentation`.
