@@ -107,6 +107,7 @@ class JobData:
                WHERE Salario < ?''',(saldo)
         )
         return self.cursor.fetchall()
+        
     
     def get_offers_res(self,professione,luogo):
         # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
@@ -115,6 +116,7 @@ class JobData:
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT * FROM OfferteLavoro WHERE Ruolo = (?) AND sedelegale = (?)",(professione,luogo))
         return self.cursor.fetchall()
+        
     
     def get_offers_sal(self,sal,l):
         # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
