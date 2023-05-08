@@ -1,5 +1,5 @@
 # ProgeIDS
-![alt text](https://comunicatidelcredito.it/wp-content/uploads/2019/09/BANCA-D-ITALIA.png)
+![alt text]()
 
 Scopo del progetto è quello di creare una webapp che permetta di connettere i singoli individui che cercano lavoro con le aziende che hanno delle posizioni libere da riempire.
 ## Documentazione
