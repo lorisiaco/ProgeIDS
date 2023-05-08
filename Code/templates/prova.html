@@ -5,10 +5,24 @@
 </head>
 <body>
 	<h1>Offerte di lavoro</h1>
-	<ul>
-		{% for offerta_lavoro in offerte_lavoro %}
-		<li><a href="{{ url_for('offerta_lavoro', id=offerta_lavoro[0]) }}">{{ offerta_lavoro[1] }}</a></li>
-		{% endfor %}
-	</ul>
+	{% for offerta in offerte %}
+		<h2>{{ offerta.Email }}</h2>
+        <p>{{ offerta.Ruolo }}</p>
+		<p>{{ offerta.Azienda }}</p>
+        <p>{{ offerta.Sedelegale }}</p>
+		<p>{{ offerta.Salario }}</p>
+		<p>{{ offerta.Descrizione }}</p>
+		{% if utente.CF %}
+			{% if utente.username in offerta.candidati_list() %}
+				<p>Sei già candidato a questa offerta.</p>
+			{% else %}
+				<form method="post" action="/candidatura/{{ offerta.id }}">
+					<input type="submit" value="Candidati">
+				</form>
+			{% endif %}
+		{% else %}
+			<p><a href="/login">Effettua il login</a> per candidarti.</p>
+		{% endif %}
+	{% endfor %}
 </body>
 </html>

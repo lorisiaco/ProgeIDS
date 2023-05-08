@@ -22,9 +22,7 @@ class JobData:
         self.conn = sqlite3.connect('jobs.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute(
-            '''INSERT INTO OfferteLavoro VALUES ( ?, ?, ?, ?, ?, ?)''',
-            (offer.id, offer.ruolo, offer.azienda, offer.sedelegale, offer.salario, offer.descrizione)
-        )
+            '''INSERT INTO OfferteLavoro VALUES ( ?, ?, ?, ?, ?, ?)''',(offer.id, offer.ruolo, offer.azienda, offer.sedelegale, offer.salario, offer.descrizione))
         self.conn.commit()
         self.conn.close()
 

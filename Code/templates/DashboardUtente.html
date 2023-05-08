@@ -45,7 +45,7 @@
       </div>
       <table>
          <tr>
-           <th>Email</th>
+           <th>ID</th>
            <th>Ruolo</th>
            <th>Azienda</th>
            <th>SedeLegale</th>
@@ -59,8 +59,21 @@
              <td>{{ job_offer[3] }}</td>
              <td>{{ job_offer[4] }}</td>
              <td>{{ job_offer[5] }}</td>
-           </tr>
-           {% endfor %}
+             <td>
+               <form method="POST" action="/candidati">
+                 <input type="hidden" name="offerta_id" value="{{ job_offer[0] }}">
+                 <input type="text" name="utente_cf" placeholder="Codice fiscale">
+                 <button type="submit">Candidati</button>
+               </form>
+             </td>
+             <td>
+               <form method="POST" action="/a">
+                  <input type="hidden" name="offerta_id2" value="{{ job_offer[0] }}">
+                 <button type="submit">Candidato Scelto</button>
+               </form>
+             </td>
+       </tr>
+       {% endfor %}
        </table>
    </body>
 </html>
