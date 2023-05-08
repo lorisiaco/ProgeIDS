@@ -25,6 +25,7 @@
       <button type="submit" class="btn btn-primary">Ricerca</button>
 </form>
 <body>
+  <br />
     <table id="tabella" class="display">
         <thead>
             <tr>
@@ -46,7 +47,6 @@
               <td>
                 <form method="POST" action="/candidati">
                   <input type="hidden" name="offerta_id" value="{{ x[0] }}">
-                  <input type="text" name="utente_cf" placeholder="Codice fiscale">
                   <button type="submit">Candidati</button>
                 </form>
               </td>
