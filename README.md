@@ -3,7 +3,7 @@
 
 Scopo del progetto è quello di creare una webapp che permetta di connettere i singoli individui che cercano lavoro con le aziende che hanno delle posizioni libere da riempire.
 ## Documentazione
-La seguente documentazione comprende i documenti realizzati per la progettazione del problema, verranno prima elencati i diagrammi delle classi in UML poi la documentazione del codice (javadoc).
+La seguente documentazione comprende i documenti realizzati per la progettazione del problema, verranno prima elencati i diagrammi delle classi in UML poi lelibrerie utilizzate
 
 ### ANALISI REQUISITI
 Dopo un' attenta analisi dei requisiti abbiamo identificato:
@@ -18,8 +18,6 @@ Sono nella cartella [Documetations/UML](https://github.com/lorisiaco/ProgeIDS/bl
 - [STATE MACHINE AZIENDA](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/StateMachineDiagram/StateMachineDiagramAzienda.png)
 - [STATE MACHINE UTENTE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/StateMachineDiagram/StateMachineDiagramUtente.png)
 - [SEQUENZE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/SequenceDiagramDiagram/SequenceDiagram.png)
-
-
 
 ### Librerie
 - [Sqlite3]
