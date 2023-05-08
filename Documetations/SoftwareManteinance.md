@@ -7,6 +7,7 @@ Principalmente ci siamo focalizzati sulle attività di refactoring al fine di mi
 Dove possibile abbiamo eliminato i "bad smells" come:
 - Codice inutile
 - Codice deprecato
+- Evitando uso di variabili globali
 - Pagine HTML duplicate
 - Riorganizzazione dei file nelle opportune cartelle (Code e Documentazione)
 

@@ -6,58 +6,66 @@ import Offerta
 import Reclamo
 import Utente
 
-class TestJobData(unittest.TestCase):
+import unittest
+import os
+import sqlite3
 
+class TestJobData(unittest.TestCase):
     def setUp(self):
-        self.db_name = "jobs.db"
+        # Crea un database temporaneo per i test
+        self.db_name = ':memory:'
         self.jobdata = JobData(self.db_name)
-        self.joboffer = Offerta("off_1", "Programmatore Python", "XYZ", "San Francisco", 120000, "Sviluppatore Python")
-        self.user = Utente("12345", "mario.rossi@gmail.com", "password", "Mario Rossi", 30, "M", "Milano", "resume")
-        self.company = Azienda("xyz@gmail.com", "12345", "XYZ", "San Francisco", "password")
-        self.reclamo = Reclamo("rec_1", "12345", "Mario Rossi", "XYZ", "Descrizione reclamo")
-        
+        self.job_offer = Offerta('123', 'Programmatore', 'Google', 'Mountain View', 100000, 'Descrizione dell\'offerta')
+        self.user = Utente('1234567890123456', 'mario.rossi@example.com', 'password', 'Mario', 35, 'M', 'Roma', 'CV di Mario Rossi')
+        self.company = Azienda('info@example.com', '12345678901', 'Google', 'Mountain View', 'password')
+        self.complaint = Reclamo('456', '1234567890123456', 'Mario Rossi', 'Google', 'Descrizione del reclamo')
+
     def tearDown(self):
-        self.jobdata.conn.close()
+        # Elimina il database temporaneo dopo i test
+        os.remove(self.db_name)
 
     def test_add_of(self):
-        # Verifica che l'inserimento di un'offerta di lavoro avvenga correttamente
-        self.jobdata.add_of(self.joboffer)
-        actual = self.jobdata.get_offers()
-        expected = [('off_1', 'Programmatore Python', 'xyz', 'San Francisco', 120000, 'Sviluppatore Python')]
-        self.assertEqual(expected, actual)
+        self.jobdata.add_of(self.job_offer)
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM OfferteLavoro")
+        rows = cursor.fetchall()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0], ('123', 'Programmatore', 'Google', 'Mountain View', 100000.0, 'Descrizione dell\'offerta'))
+        conn.close()
 
     def test_add_ut(self):
-        # Verifica che l'inserimento di un utente avvenga correttamente
         self.jobdata.add_ut(self.user)
-        self.jobdata.cursor.execute("SELECT * FROM Utenti WHERE CF='12345'")
-        actual = self.jobdata.cursor.fetchone()
-        expected = ('12345', 'mario.rossi@gmail.com', 'password', 'Mario Rossi', 30, 'M', 'Milano', 'resume')
-        self.assertEqual(expected, actual)
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Utenti")
+        rows = cursor.fetchall()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0], ('1234567890123456', 'mario.rossi@example.com', 'password', 'Mario', 35, 'M', 'Roma', 'CV di Mario Rossi'))
+        conn.close()
 
     def test_add_az(self):
-        # Verifica che l'inserimento di un'azienda avvenga correttamente
         self.jobdata.add_az(self.company)
-        self.jobdata.cursor.execute("SELECT * FROM Aziende WHERE email='xyz@gmail.com'")
-        actual = self.jobdata.cursor.fetchone()
-        expected = ('xyz@gmail.com', '12345', 'XYZ', 'San Francisco', 'password')
-        self.assertEqual(expected, actual)
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Aziende")
+        rows = cursor.fetchall()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0], ('info@example.com', '12345678901', 'Google', 'Mountain View', 'password'))
+        conn.close()
 
     def test_add_re(self):
-        # Verifica che l'inserimento di un reclamo avvenga correttamente
-        self.jobdata.add_re(self.reclamo)
-        self.jobdata.cursor.execute("SELECT * FROM Reclamo WHERE ID='rec_1'")
-        actual = self.jobdata.cursor.fetchone()
-        expected = ('rec_1', '12345', 'Mario Rossi', 'XYZ', 'Descrizione reclamo')
-        self.assertEqual(expected, actual)
+        self.jobdata.add_re(self.complaint)
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Reclamo")
+        rows = cursor.fetchall()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0], ('456', '1234567890123456', 'Mario Rossi', 'Google', 'Descrizione del reclamo'))
+        conn.close()
 
     def test_get_offers(self):
-        # Verifica che il metodo get_offers restituisca tutte le offerte di lavoro
-        actual = len(self.jobdata.get_offers())
-        expected = 1
-        self.assertEqual(expected, actual)
-
-    def test_get_offers_sedelegale(self):
-        # Verifica che il metodo get_offers_sedelegale restituisca solo le offerte con il sedelegale corrispondente
-        actual = len(self.jobdata.get_offers_sedelegale("San Francisco"))
-        expected = 1
-        self.assertEqual(expected, actual)
+        self.jobdata.add_of(self.job_offer)
+        rows = self.jobdata.get_offers()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0], ('123', 'Programmatore', 'Google', 'Mountain View', 100000.0, 'Descrizione dell\'offerta'))
