@@ -37,5 +37,5 @@
 - `Meetings`:
     - 20/4/23: Creato la funzione Candidatura, creato UML ed una parte di Documentazione.
     - 28/4/23: Documentazione quasi finita e pure i diagrammi UML, funzioni del codice tutta implementata e funzionante.
-    -8/5/23: Termine progetto, documentazione e test finita, creato pure la funzione reclami.
--`Sprint Review`: Dopo tutti gli ostacoli incontrati e carenze avute siamo riusciti a terminare il progetto in modo soddisfacente.
+    - 8/5/23: Termine progetto, documentazione e test finita, creato pure la funzione reclami.
+- `Sprint Review`: Dopo tutti gli ostacoli incontrati e carenze avute siamo riusciti a terminare il progetto in modo soddisfacente.
