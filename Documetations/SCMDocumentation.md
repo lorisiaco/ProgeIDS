@@ -26,3 +26,16 @@
     - 26/1/23: Creato le varie page di ricerche per luogo,professione,salario. Sistemazione web-app
 - `Sprint Review`: Non siamo soddisfatti di questo sprint, non abbiamo completato tutti i punti del Backlog causa problemi incontrati cio comporterà il rischio al non rispetto dei tempi.
 ## Sprint 3
+- `Introduzione`: Nel terzo sprint ci siamo focalizzati sulla stesura della documentazione e dei diagrammi UML, piu sistemazione e completamento della web-app e dei test
+- `Sprint Backlog`:
+    - Test e documentazione annessa
+    - Documentazione(Qualità,LifeCycle,ecc..)
+    - Creazione Diagrammi UML
+    - Creazione Visualizzazione Candidati
+    - Creazione Funzione selezione candidato
+    - Grafica Web
+- `Meetings`:
+    - 20/4/23: Creato la funzione Candidatura, creato UML ed una parte di Documentazione.
+    - 28/4/23: Documentazione quasi finita e pure i diagrammi UML, funzioni del codice tutta implementata e funzionante.
+    -8/5/23: Termine progetto, documentazione e test finita, creato pure la funzione reclami.
+-`Sprint Review`: Dopo tutti gli ostacoli incontrati e carenze avute siamo riusciti a terminare il progetto in modo soddisfacente.
