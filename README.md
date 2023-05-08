@@ -26,7 +26,7 @@ Sono nella cartella [Documetations/UML](https://github.com/lorisiaco/ProgeIDS/bl
 
 ### DataBase
 Abbiamo realizzato un DATABASE in mysql per la gestione delle offerte, per il LOGIN e l'inserimento di un nuovo utente.
-[DB](Code/__pycache__/JobDatabase.cpython-310.pyc).
+[DB](https://github.com/lorisiaco/ProgeIDS/blob/main/jobs.db).
 
 ## Funzionalità
 - [Registrazione Profilo]
