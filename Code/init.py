@@ -23,7 +23,9 @@ cursor = conn.cursor()
 
 @app.route('/')
 def home():
+    #indirizzami a home.html
     return render_template("home.html")
+
 
 @app.route('/c')
 def c():
