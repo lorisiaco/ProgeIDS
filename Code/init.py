@@ -36,6 +36,7 @@ def Reclami():
         new_reclamo=Reclamo.Reclamo(ID,CF,AZIENDA,DESCRIZIONE)
         db = JobData('jobs.db')
         db.add_re(new_reclamo)
+        
     return render_template('Reclamo.html')
 
 @app.route('/a', methods=['POST'])

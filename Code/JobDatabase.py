@@ -121,8 +121,6 @@ class JobData:
         return self.cursor.fetchall()
     
     def get_offers_res(self,professione,luogo):
-        # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
-        #in cui il sedelegale delle offerte corrisponde al sedelegale inserito dall'utente per la ricerca
         self.conn = sqlite3.connect('jobs.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT * FROM OfferteLavoro WHERE Ruolo = (?) AND sedelegale = (?)",(professione,luogo))
