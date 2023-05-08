@@ -4,6 +4,7 @@ from JobDatabase import JobData
 import sqlite3
 import Utente
 import Azienda
+import Reclamo
 import PyPDF2
 from datetime import timedelta
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -20,15 +21,21 @@ app.permanent_session_lifetime=timedelta(minutes=1)
 conn = sqlite3.connect('jobs.db' , check_same_thread=False)
 cursor = conn.cursor()
 
-
 @app.route('/')
 def home():
     return render_template("home.html")
-
-@app.route('/c')
-def c():
-    job_offers = JobData('jobs.db').get_offers()
-    return render_template('prova3.html', job_offers=job_offers)
+    
+@app.route('/Reclami',methods=['GET','POST'])
+def Reclami():
+    if request.method=='POST':
+        ID = request.form.get('id')
+        CF = request.form.get('cf')
+        AZIENDA = request.form.get('azienda')
+        DESCRIZIONE = request.form.get('descrizione')
+        new_reclamo=Reclamo.Reclamo(ID,CF,AZIENDA,DESCRIZIONE)
+        db = JobData('jobs.db')
+        db.add_re(new_reclamo)
+    return render_template('Reclamo.html')
 
 @app.route('/a', methods=['POST'])
 def a():

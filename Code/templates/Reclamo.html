@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %}Reclamo{% endblock %} {% block
+    content %}
+    <form method="POST" enctype="multipart/form-data">
+      <h3 align="center">Reclamo</h3>
+      <div class="form-group">
+        <label for="id">Reclamo ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          name="id"
+          placeholder="Enter ID Reclamo"
+        />
+      </div>
+      <div class="form-group">
+        <label for="cf">Utente ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cf"
+          name="cf"
+          placeholder="Enter ID Utente"
+        />
+      </div>
+      <div class="form-group">
+        <label for="azienda">Azienda ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="azienda"
+          name="azienda"
+          placeholder="Enter ID Azienda"
+        />
+      </div>
+      <div class="form-group">
+        <label for="descrizione">Descrizione</label>
+        <textarea
+          id="descrizione"
+          name="descrizione"
+          placeholder="Inserisci descrizione reclamo">
+        </textarea>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endblock %}
