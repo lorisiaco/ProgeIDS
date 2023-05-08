@@ -51,6 +51,18 @@ class JobData:
         self.conn.commit()
         self.conn.close()
     
+    def add_re(self, reclamo):
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Reclamo (ID TEXT PRIMARY KEY ,CF TEXT,nome TEXT,Azienda TEXT,Descrizione TEXT)""")
+        self.conn.commit()
+        self.cursor.execute(
+            '''INSERT INTO Reclamo (ID,CF,Azienda,Descrizione) VALUES ( ?, ?, ?, ?)''',
+            (reclamo.ID,reclamo.CF,reclamo.Azienda,reclamo.Descrizione)
+        )
+        self.conn.commit()
+        self.conn.close()
+    
     def get_offers(self):
         # il metodo get_offers esegue una query per selezionare tutte le righe presenti nella tabella
         # utilizza il cursore per ottenere i risultati della query e li restituisce
