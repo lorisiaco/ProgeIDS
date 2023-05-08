@@ -17,7 +17,7 @@ Sono nella cartella [Documentazione/Diagrammi](https://github.com/lorisiaco/Prog
 - [CLASSI](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/ClassDiagram/ClassDiagram.png)
 - [STATE MACHINE AZIENDA](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/StateMachineDiagram/StateMachineDiagramAzienda.png)
 - [STATE MACHINE UTENTE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/StateMachineDiagram/StateMachineDiagramUtente.png)
-- [SEQUENZE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/SequenceDiagramDiagram/SequenceDiagram.png))
+- [SEQUENZE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/UML/SequenceDiagramDiagram/SequenceDiagram.png)
 
 
 
