@@ -10,6 +10,8 @@ class Azienda:
             self.nome=nome
             self.sedelegale=sedelegale
             self.passw=passw
+            
+            
 
     def add_offer(self, id, title, location, salary):
         # crea un'istanza della classe Offerta con i dettagli dell'offerta di lavoro
