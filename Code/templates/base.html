@@ -78,5 +78,28 @@
       type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"
     ></script>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid black;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+      tr:hover {
+        background-color: #ddd;
+      }
+    </style>
   </body>
 </html>
