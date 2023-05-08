@@ -25,7 +25,7 @@ Sono nella cartella [Documetations/UML](https://github.com/lorisiaco/ProgeIDS/bl
 
 
 ### DataBase
-Abbiamo realizzato un DATABASE in mysql per la gestione delle offerte, per il LOGIN e l'inserimento di un nuovo utente.
+Abbiamo realizzato un DATABASE in SQLITE per la gestione delle offerte(Creazione, Visualizzazione, Ricerca, ecc..), per il login , per l'inserimento di un nuovo utente e/o azienda e per lo storico dei reclami.
 [DB](https://github.com/lorisiaco/ProgeIDS/blob/main/jobs.db).
 
 ## Funzionalità
