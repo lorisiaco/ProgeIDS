@@ -159,6 +159,32 @@ class JobData:
         )
         return self.cursor.fetchall()
 
+    def get_aziende(self):
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''SELECT * FROM Aziende'''
+        )
+        return self.cursor.fetchall()
+
+    #metodo per aggiungere candidatura utente in relazione ad un'offerta prendendo in input l'id dell'offerta e id utente e usa come chiave primaria 'id candidatura'
+    def add_candidatura(self,id_offerta,id_utente):
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''INSERT INTO Candidature(ID_Offerta,ID_Utente) VALUES (?,?)''',(id_offerta,id_utente)
+        )
+        self.conn.commit()
+        self.conn.close()
+    
+    def get_candidati(self,id_offerta):
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''SELECT * FROM Candidature WHERE ID_Offerta = (?)''',(id_offerta,)
+        )
+        return self.cursor.fetchall()
+
     def delete(self, id):
         # il metodo delete esegue una query per eliminare una riga dalla tabella
         # utilizza il cursore per eseguire la query
