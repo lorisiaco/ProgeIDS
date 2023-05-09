@@ -4,6 +4,7 @@
 Scopo del progetto è quello di creare una webapp che permetta di connettere i singoli individui che cercano lavoro con le aziende che hanno delle posizioni libere da riempire.
 ## Documentazione
 La seguente documentazione comprende i documenti realizzati per la progettazione del problema, verranno prima elencati i diagrammi delle classi in UML poi le librerie utilizzate.
+
 -[DOCUMENTAZIONE](https://github.com/lorisiaco/ProgeIDS/blob/main/Documentation)
 
 ### ANALISI REQUISITI
