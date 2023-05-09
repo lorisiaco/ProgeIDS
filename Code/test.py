@@ -45,4 +45,5 @@ def test_get_offers_ruolo(self):
 #test for get_offers_salarioMAX method in JobData class
 def test_get_offers_salarioMAX(self):
     self.assertEqual(self.get_offers_salarioMAX(),JobData.get_offers_salarioMAX())
-    
+     
+     

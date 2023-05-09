@@ -13,7 +13,7 @@ class Azienda:
 
     def add_offer(self, id, title, location, salary):
         # crea un'istanza della classe Offerta con i dettagli dell'offerta di lavoro
-        offer = Offerta(id, title, self.idc, location, salary)
+        offer = Offerta(id, title, self.email, location, salary)
         # utilizza il metodo add_of della classe JobOfferDatabase per aggiungere l'offerta di lavoro al database
         JobData.add_of(offer)
     
