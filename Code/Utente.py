@@ -55,3 +55,6 @@ class Utente:
         for offer in offers:
             id, title, company, location, salary = offer
             print(f'{id} at {title} at {company} in {location} for ${salary:,.2f}')
+
+
+
