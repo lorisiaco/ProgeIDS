@@ -14,9 +14,9 @@ class TestJobDatabase(unittest.TestCase):
         #crea tabella di test
         c.execute('''CREATE TABLE OfferteLavoro (ID TEXT PRIMARY KEY ,Titolo TEXT,Azienda TEXT,sedelegale TEXT,Ruolo TEXT,Salario TEXT)''')
         #inserisce dati di test
-        c.execute('''INSERT INTO OfferteLavoro (ID,Titolo,Azienda,sedelegale,Ruolo,Salario) VALUES (?,?,?,?,?,?)''',("1","Titolo1","Azienda1","Sedelegale1","Ruolo1","Salario1"))
         c.execute('''INSERT INTO OfferteLavoro (ID,Titolo,Azienda,sedelegale,Ruolo,Salario) VALUES (?,?,?,?,?,?)''',("2","Titolo2","Azienda2","Sedelegale2","Ruolo2","Salario2"))
         c.execute('''INSERT INTO OfferteLavoro (ID,Titolo,Azienda,sedelegale,Ruolo,Salario) VALUES (?,?,?,?,?,?)''',("3","Titolo3","Azienda3","Sedelegale3","Ruolo3","Salario3"))
+        c.execute('''INSERT INTO OfferteLavoro (ID,Titolo,Azienda,sedelegale,Ruolo,Salario) VALUES (?,?,?,?,?,?)''',("4","Titolo4","Azienda4","Sedelegale4","Ruolo4","Salario4"))
         conn.commit()
         conn.close()
         #estraggo le offerte dal database di test
@@ -39,41 +39,42 @@ class TestJobDatabase(unittest.TestCase):
         jobdata = JobData('jobs.db')
         #creo offerta di test
 
-        offerta = Offerta.Offerta("117","Titolo1","Azienda1","Sedelegale1","Ruolo1","Salario1")
+        offerta = Offerta.Offerta("119","Titolo1","Azienda1","Sedelegale1","Ruolo1","Salario1")
         #aggiungo offerta di test
         jobdata.add_of(offerta)
         #estraggo offerta di test con metodo get_offers_all
         offers = jobdata.get_offers_all()
         #verifico che l'offerta di test sia stata inserita estraendo l'ultima offerta nel db
-        self.assertEqual(offers[-1][0],"117")
+        self.assertEqual(offers[-1][0],"119")
 
     #test delete
     def test_delete(self):
         #testiamo con jobs.db 
         jobdata = JobData('jobs.db')
         #creo offerta di test
-        offerta = Offerta.Offerta("122","Titolo1","Azienda1","Sedelegale1","Ruolo1","Salario1")
+        offerta = Offerta.Offerta("124","Titolo1","Azienda1","Sedelegale1","Ruolo1","Salario1")
         #aggiungo offerta di test
         jobdata.add_of(offerta)
         #elimino offerta di test
-        jobdata.delete("122")
+        jobdata.delete("124")
         #estraggo offerta di test con metodo get_offers_all
         offers = jobdata.get_offers_all()
         #verifico che l'offerta di test sia stata eliminata estraendo l'ultima offerta nel db
-        self.assertNotEqual(offers[-1][0],"122")
+        self.assertNotEqual(offers[-1][0],"124")
 
     #test add_ut 
     def test_add_ut(self):
         #testiamo con jobs.db 
         jobdata = JobData('jobs.db')
         #creo utente di test con classe utente
-        utente = Utente.Utente("email4","password1","nome1","cognome1","telefono1","citta1","indirizzo1","cap1")
+        utente = Utente.Utente("email17","password1","nome1","cognome1","telefono1","citta1","indirizzo1","cap1")
         jobdata.add_ut(utente)
         #estraggo utente di test con metodo get_users
         utenti = jobdata.get_users()
         #verifico che l'utente di test sia stato inserito estraendo l'ultimo utente nel db
-        self.assertEqual(utenti[-1][0],"email4")
+        self.assertEqual(utenti[-1][0],"email17")
 
+    
 
 
 

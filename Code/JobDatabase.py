@@ -90,6 +90,7 @@ class JobData:
             '''SELECT * FROM OfferteLavoro'''
         )
         return self.cursor.fetchall()
+    
     def get_offers_sedelegale(self,sedelegale):
         # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
         #in cui il sedelegale delle offerte corrisponde al sedelegale inserito dall'utente per la ricerca
