@@ -25,8 +25,9 @@ Sono nella cartella [Documetations/UML](https://github.com/lorisiaco/ProgeIDS/bl
 - [PyPDF2]
 - [Datetime]
 - [flask_login]
-- [jwt]
 - [functiontools]
+- [Unittest]
+- [Coverage]
 
 ### DataBase
 Abbiamo realizzato un DATABASE in SQLITE per la gestione delle offerte(Creazione, Visualizzazione, Ricerca, ecc..), per il login , per l'inserimento di un nuovo utente e/o azienda e per lo storico dei reclami.
