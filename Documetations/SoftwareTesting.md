@@ -15,6 +15,7 @@ La classe TestJobDatabase è suddivista nei seguenti sotto-test:
 Per poter ripetere i test è necessario eliminare il BD Test1 e per gli ultimi 5 sottotest cambiare la chiave primaria ossia il primo valore (es: email1 ---> email3).
 
 I nostri test sono passati tutti:
-Mettere immagine???????
+![ok.png](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/TestOK.png)
+
 Il nostro coverage è il seguente:
-Mettere immagine coverage
+![cov.png](https://github.com/lorisiaco/ProgeIDS/blob/main/Documetations/TestCoverage.png)
