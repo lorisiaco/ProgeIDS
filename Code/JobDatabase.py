@@ -73,7 +73,23 @@ class JobData:
         )
         return self.cursor.fetchall()
         
-    
+    #get offers by id
+    def get_offers_id(self, id):
+
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''SELECT * FROM OfferteLavoro WHERE ID = (?)''',(id,)
+        )
+        return self.cursor.fetchall()
+    #metodo per estrarre tutte le offerte nel db
+    def get_offers_all(self):
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''SELECT * FROM OfferteLavoro'''
+        )
+        return self.cursor.fetchall()
     def get_offers_sedelegale(self,sedelegale):
         # il metodo get_offers_sedelegale esegue una query per selezionare tutte le righe presenti nella tabella
         #in cui il sedelegale delle offerte corrisponde al sedelegale inserito dall'utente per la ricerca
@@ -134,14 +150,24 @@ class JobData:
         self.cursor.execute("SELECT * FROM OfferteLavoro WHERE Salario = (?) AND sedelegale = (?)",(sal,l))
         return self.cursor.fetchall()
 
-    def delete(self, id):
-        #Query per eliminare una offerta dal database
+    #metodo per estrarre tutti gli utenti
+    def get_users(self):
         self.conn = sqlite3.connect('jobs.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute(
-            '''DELETE 
-               FROM OfferteLavoro
-               WHERE ID= ?''',(id)
+            '''SELECT * FROM Utenti'''
         )
         return self.cursor.fetchall()
+
+    def delete(self, id):
+        # il metodo delete esegue una query per eliminare una riga dalla tabella
+        # utilizza il cursore per eseguire la query
+        self.conn = sqlite3.connect('jobs.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute(
+            '''DELETE FROM OfferteLavoro WHERE ID = (?)''',(id,)
+        )
+        self.conn.commit()
+        self.conn.close()
+
 

@@ -11,6 +11,22 @@ class Offerta:
         self.salario = salario
         self.descrizione=descrizione
             
+    def get_id(self):
+        return self.id
     
-        
+    def get_ruolo(self):
+        return self.ruolo
+
+    def get_azienda(self):
+        return self.azienda
+    
+    def get_sedelegale(self):
+        return self.sedelegale
+    
+    def get_salario(self):
+        return self.salario
+    
+    def get_descrizione(self):
+        return self.descrizione
+    
 
